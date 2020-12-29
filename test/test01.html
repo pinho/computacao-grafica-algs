@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testando a matriz de pixels</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <script rel="text/javascript" src="../matrixman.js"></script>
+    <script>
+        var root = document.getElementById('root');
+        const mat = Matrix.create(20, 20, root);
+
+        // Pinta todos os pixels em que ao menos uma das coordenadas e 0 (de preto)
+        // Pinta pixels formando um X (de laranja)
+        for (let i = 0; i < mat.width; i++) {
+            for (let k = 0; k < mat.height; k++) {
+                if (i === k || i+k === mat.width)
+                    mat.paint(i, k);
+
+                if (i === 0 || k === 0)
+                    mat.paint(i, k, color='orangered');        
+            }
+        }
+
+        mat.paint(0, 10, color='orangered');
+    </script>
+</body>
+</html>

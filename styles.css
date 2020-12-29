@@ -1,0 +1,16 @@
+#framebuffer {
+	margin: 0 auto;
+}
+
+.pixels-grid {
+    display: grid;
+	margin: 0 auto;
+	width: fit-content;
+    /* border: 1px solid #222; */
+}
+
+.pixels-grid > .pixel {
+	border: 1px solid #eaeaea;
+	background-color: white;
+	color: #555;
+} 
