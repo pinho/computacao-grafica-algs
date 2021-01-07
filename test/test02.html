@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Testando a matriz de pixels</title>
+    <title>Testando a matriz de pixels com quadrantes</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
@@ -12,11 +12,11 @@
     <script rel="text/javascript" src="../matrizes.js"></script>
     <script>
         var root = document.getElementById('root');
-        const mat = Matrix.create(20, 20, root);
+        const mat = QuadMatrix.create(-5, 10, -2, 8, root, pixelSize=40);
         
-        mat.paint(0,0);
-        mat.paint(18,2);
-        mat.paint(10,11);
+        mat.paint(0,0, color="royalblue"); // Pinta a origem de azul
+        mat.paint(-5, -2); // Pintar o pixel na extremidade negativa de cada eixo
+        mat.paint(10, 8); // Pintar o pixel na extremidade positiva de cada eixo
 
     </script>
 </body>
