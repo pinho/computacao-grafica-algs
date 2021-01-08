@@ -145,7 +145,7 @@ const QuadMatrix = {
             for (let k=0; k < result.width; k++) {
                 let newPixel = document.createElement("div");
                 newPixel.classList.add("pixel");
-                newPixel.innerText = `(${result.xRange.minor+k}, ${result.yRange.major-i})`; // linha usada em debug
+                // newPixel.innerText = `(${result.xRange.minor+k}, ${result.yRange.major-i})`; // linha usada em debug
                 newPixel.style.fontSize = ".5em";
                 matrixRow.push(newPixel);
                 divRootElement.appendChild(newPixel);
