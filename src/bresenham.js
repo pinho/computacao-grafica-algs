@@ -131,9 +131,9 @@ if (octantProblem() == true) {
 
 
     reflection();
-    mat.paint(xRoot1, yRoot1, color="royalblue");
-    mat.paint(xRoot2, yRoot2, color="royalblue");
-    drawnPoint()
+    mat.paint(x1, y1, color="royalblue");
+    mat.paint(x2, y2, color="royalblue");
+    // drawnPoint();
 
     console.log("====> X: " + xReflection + " | X2: " + x2);
     while(xReflection < x2) {
@@ -156,11 +156,11 @@ if (octantProblem() == true) {
         }
 
         showPoints();
-
-        reflectionReverse();
-
-        showPoints();
     }
+
+    reflectionReverse();
+
+    showPoints();
 
 } else {
     // drawnPoint()
@@ -176,14 +176,13 @@ if (octantProblem() == true) {
     }
 }
 
-
-
 mat.paint(xRoot1, yRoot1, color="royalblue");
 
 for (var i = 0; i < xList.length; i++) {
-    mat.paint(xList[i],yList[i]);
+    mat.paint(xList[i],yList[i]);   
 }
 
+mat.paint(xRoot2, yRoot2, color="royalblue");
 
 
 

@@ -147,11 +147,9 @@
 
 
             reflection();
-            
             mat.paint(x1, y1, color="royalblue");
             mat.paint(x2, y2, color="royalblue");
-            
-            // drawnPoint()
+            // drawnPoint();
 
             console.log("====> X: " + xReflection + " | X2: " + x2);
             while(xReflection < x2) {
@@ -174,11 +172,11 @@
                 }
 
                 showPoints();
-
-                reflectionReverse();
-
-                showPoints();
             }
+
+            reflectionReverse();
+
+            showPoints();
 
         } else {
             // drawnPoint()
@@ -195,15 +193,17 @@
         }
 
         mat.paint(xRoot1, yRoot1, color="royalblue");
+       
+        for (var i = 0; i < xList.length; i++) {
+            mat.paint(xList[i],yList[i]);   
+        }
+
         mat.paint(xRoot2, yRoot2, color="royalblue");
 
-        console.log("\n=========TESTE==========\n");
-        for (var i = 0; i < xList.length; i++) {
-            
-            console.log("X: " + xList[i] + " - Y: " + yList[i]);
 
-            mat.paint(xList[i], yList[i]);
-        }
+
+
+
 
     </script>
 </body>
