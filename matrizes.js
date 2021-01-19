@@ -1,70 +1,66 @@
+document.body.style.width   = '100%';
+document.body.style.height  = '100vh';
+document.body.style.padding = '0';
+document.body.style.margin  = '0';
 
-const Matrix = {
-    /** Largura da matrix de pixels (numero de colunas) */
-    width: 0,
+// var NUM_MATRICES = 0;
 
-    /** Altura da matrix de pixels (numero de linhas) */
-    height: 0,
+/**
+ * Cria os elementos HTML que definem a matriz de pixels e os pixels organizados 
+ * em grade, e retorna o Array de Arrays (Matriz) com os elementos HTML.
+ * 
+ * @param {Number} numOfRows o número de linhas de pixels para a matriz
+ * @param {Number} numOfColumns o número de colunas de pixels para a matrix
+ * @param {HTMLElement} parentElement elemento HTML que irá conter a matriz de pixels
+ * @param {Number} pixelSize tamanho dos pixels em "px" [default = 10px]
+ * @return {Array<Array<HTMLElement>>}
+ */
+function Matrix(numOfRows, numOfColumns, parentElement, pixelSize = 20) {
+    this.height = numOfRows;    // Altura da matrix de pixels (numero de linhas)
+    this.width  = numOfColumns; // Largura da matrix de pixels (numero de colunas)
+    this.pixelSize = pixelSize; // Tamanho das divs que representam os pixels
 
-    /** Lista de listas de elementos "div", onde cada elemento representa um pixel */
-    pixels: new Array(0),
+    let divRootElement = document.createElement("div");
+    divRootElement.classList.add("pixels-grid-container", "bordered");
+    divRootElement.setAttribute("id", "matrix-container");
+
+    for (let i = 0; i < this.height; i++) {
+        let rowElem = document.createElement("div");
+        rowElem.classList.add("matrix-row");
+
+        for (let k = 0; k < this.width; k++) {
+            let pixElem = document.createElement("div");
+            pixElem.classList.add("pixel");
+            pixElem.style.width  = `${this.pixelSize}px`;
+            pixElem.style.height = `${this.pixelSize}px`;
+            rowElem.appendChild(pixElem);
+        }
+        divRootElement.appendChild(rowElem);
+    }
+    parentElement.appendChild(divRootElement);
 
     /**
-     * Cria os elementos HTML que definem a matriz de pixels e os pixels organizados 
-     * em grade, e retorna o Array de Arrays (Matriz) com os elementos HTML.
-     * 
-     * @param {Number} numOfRows o número de linhas de pixels para a matriz
-     * @param {Number} numOfColumns o número de colunas de pixels para a matrix
-     * @param {HTMLElement} parentElement elemento HTML que irá conter a matriz de pixels
-     * @param {Number} pixelSize tamanho dos pixels em "px" [default = 10px]
-     * @return {Array<Array<HTMLElement>>}
+     * Retorna o elemento HTML de um pixel em uma dada posicao no sistema de
+     * coordenadas cartesiano.
+     * @param {Number} x coordenada no eixo X
+     * @param {Number} y coordenada no eixo Y
      */
-    create: function(numOfRows, numOfColumns, parentElement, pixelSize = 20) {
-        resultantObject = Object.create(Matrix);
-        resultantObject.height = numOfRows;
-        resultantObject.width = numOfColumns;
-
-        let divRootElement = document.createElement("div");
-        divRootElement.classList.add("pixels-grid");
-        divRootElement.style.gridTemplateRows = `repeat(${numOfRows}, ${pixelSize}px)`;
-        divRootElement.style.gridTemplateColumns = `repeat(${numOfColumns}, ${pixelSize}px)`;
-
-        for (let i=0; i < numOfRows; i++) {
-            let matrixRow = [];
-            for (let k=0; k < numOfColumns; k++) {
-                let newPixel = document.createElement("div");
-                newPixel.classList.add("pixel");
-                matrixRow.push(newPixel);
-                divRootElement.appendChild(newPixel);
-            }
-            resultantObject.pixels.unshift(matrixRow);
-        }
-        parentElement.appendChild(divRootElement);
-        return resultantObject;
-    },
+    this.getPixel = function(x, y) {
+        return document.querySelectorAll('#matrix-container > .matrix-row')[this.height-1 - x].childNodes[y];
+    };
 
     /**
-     * Pinta um pixel da matriz com a cor preta, desde que os valores passados
-     * sejam menores do que os respectivos tamanhos de cada dimensao.
-     * Imprime um erro no console caso alguma das coordenadas passadas seja
-     * invalida.
-     * 
-     * @param {Number} coordX coordenada no eixo X
-     * @param {Number} coordY coordenada no eixo Y
-     * @param {String} color cor para aplicar no pixel
+     * Pinta um pixel em uma dada posicao (x,y) no sistemas de coordenadas cartesiano.
+     * @param {Number} x coordenada no eixo X
+     * @param {Number} y coordenada no eixo Y
+     * @param {String} color cor para pintar o pixel
      */
-    paint: function(coordX, coordY, color = 'black') {
-        if ((coordX >= 0) && (coordX < this.pixels[0].length) &&
-            (coordY >= 0) && (coordY < this.pixels.length))
-        {
-            let pixel = this.pixels[coordY][coordX];
-            pixel.style.backgroundColor = color;
-            pixel.style.borderColor = color;
-        } else {
-            console.error("Impossible to access index ["+ coordX +":"+ coordY +"]");
-        }
-    },
-};
+    this.paint = function(x, y, color='black') {
+        let pixel = this.getPixel(x, y);
+        pixel.style.backgroundColor = color;
+        pixel.style.borderColor = color;
+    };
+}
 
 // TODO: Documentar a matrix com quadrantes
 const QuadMatrix = {
