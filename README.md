@@ -35,13 +35,14 @@ pixels.
 Dentro da tag `<script>`, depois da tag que referencia o arquivo `matrizes.js`:
 
 ```js
-// Cria um elemento "div" no DOM dentro da div#root com display grid e com componentes div
-// menores organizado em linhas e colunas. Retorna um objeto Matrix que possui uma matriz
-// (array de arrays) com todos os elementos menores (do tipo HTMLElement).
-const matriz = Matrix.create(30, 30, document.getElementById("root"));
+// Cria um elemento "div" no DOM dentro da div#root com display grid e com
+// componentes div menores organizado em linhas e colunas. Retorna um objeto
+// Matrix que possui uma matriz (array de arrays) com todos os elementos
+// menores (do tipo HTMLElement).
+const matriz = new Matrix(30, 30, document.getElementById("root"));
 
-// matriz e um Array<Array<HTMLElement>>, com 30 Arrays, cada um contendo um Array de 30
-// elementos HTML
+// matriz é um Array<Array<HTMLElement>>, com 30 Arrays, cada um contendo um
+// Array de 30 elementos HTML
 
 // Pinta de preto o elemento div nas coordenadas (x=10, y=10)
 matriz.paint(10, 10);
@@ -49,4 +50,4 @@ matriz.paint(10, 10);
 
 ---
 
-Em desenvolvimento
+OBS: Biblioteca em desenvolvimento
