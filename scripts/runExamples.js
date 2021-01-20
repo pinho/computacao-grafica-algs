@@ -25,7 +25,7 @@ function example2() {
 	const P2 = new Point(4, 11);
 	console.log(`Pontos: P1=(${P1.x}, ${P1.y}) e P2=(${P2.x}, ${P2.y})`);
 
-	var mat = Matrix.create(20, 20, document.getElementById('root'), pixelSize=16);
+	var mat  = new Matrix(20, 20, document.getElementById('root'), pixelSize=16);
 	var line = new Bresenham(P1, P2);
 
 	line.allPoints.forEach(p => {

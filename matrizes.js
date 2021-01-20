@@ -46,7 +46,7 @@ function Matrix(numOfRows, numOfColumns, parentElement, pixelSize = 20) {
      * @param {Number} y coordenada no eixo Y
      */
     this.getPixel = function(x, y) {
-        return document.querySelectorAll('#matrix-container > .matrix-row')[this.height-1 - x].childNodes[y];
+        return document.getElementsByClassName('matrix-row')[this.height-1 - y].childNodes[x];
     };
 
     /**
@@ -56,9 +56,11 @@ function Matrix(numOfRows, numOfColumns, parentElement, pixelSize = 20) {
      * @param {String} color cor para pintar o pixel
      */
     this.paint = function(x, y, color='black') {
-        let pixel = this.getPixel(x, y);
-        pixel.style.backgroundColor = color;
-        pixel.style.borderColor = color;
+    	if (x >= 0 && y >= 0) {
+        	var p = document.getElementsByClassName('matrix-row')[this.height-1 - y].childNodes[x];
+        	p.style.backgroundColor = color;
+        	p.style.borderColor = color;
+        }
     };
 }
 
