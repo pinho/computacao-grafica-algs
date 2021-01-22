@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testes no Console</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div id="root" style="padding: 3em;"></div>
+    <script rel="text/javascript" src="../matrizes.js"></script>
+    <script>
+        const mat = new Matrix(40, 40, document.getElementById("root"), 20);
+
+		// Raios inicial
+		var radius = { a: 10, b: 5 };
+
+		//Ponto inicial
+		var center = {x: 20, y: 15};
+
+		// exponencial
+		var exp = { a: radius.a**2, b: radius.b**2 }; 
+
+		// novos x e y
+		var x = 0;
+		var y = radius.b;
+
+		// Devidada parcial de x e y
+		var derivative = { x: 2 * exp.b * x, y: 2 * exp.a * y };
+
+		// ponto medio - erro
+		var firstError = -radius.b * exp.a + exp.a * 0.25;
+
+		// pintar
+		function reflection(x, y) {
+			mat.paint(x + center.x, y + center.y);
+			mat.paint(-x + center.x, y + center.y);
+			mat.paint(x + center.x, -y + center.y);
+			mat.paint(-x + center.x, -y + center.y);
+		}
+
+		// primeira regiao
+		function firstPoint() {
+			while (derivative.x < derivative.y) {
+				
+				// pintar
+				reflection(x, y);
+				console.log("X: " + x + "| Dx: " + derivative.x + "| Dy:" + derivative.y + "| E: " + secondError + "| Y: " + y);
+				
+				x++;
+				firstError += derivative.x + exp.b;
+				derivative.x += 2 * exp.b;
+
+				if (firstError > 0) {
+					y--;
+					firstError += exp.a - derivative.y;
+					derivative.y -= 2 * exp.a;
+				}
+
+				console.log("X: " + x + "| Dx: " + derivative.x + "| Dy:" + derivative.y + "| E: " + firstError + "| Y: " + y);
+			}
+		}
+
+		var secondError = exp.b * ( (x + 0.5) * (x + 0.5) ) + exp.a * y**2 - exp.a * exp.b;
+
+		//segunda regiao
+		function secondPoint() {
+			while ( y >= 0 ) {
+				//pinta
+				reflection(x, y);
+				console.log("X: " + x + "| Dx: " + derivative.x + "| Dy:" + derivative.y + "| E: " + secondError + "| Y: " + y);
+				y--;
+				secondError += exp.a - derivative.y;
+				derivative.y -= 2 * exp.a;
+
+				if ( secondError < 0 ) {
+					x++;
+					secondError += derivative.x + exp.b;
+					derivative.x += 2 * exp.b;
+				}
+				console.log("X: " + x + "| Dx: " + derivative.x + "| Dy:" + derivative.y + "| E: " + secondError + "| Y: " + y);
+			}
+		}
+
+		firstPoint();
+
+		secondPoint();
+
+    </script>
+</body>
+</html>
