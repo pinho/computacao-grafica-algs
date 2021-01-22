@@ -6,6 +6,12 @@
     <title>Algoritmo de Bresenham</title>
     <link rel="stylesheet" href="../styles.css"/>
     <style>
+		body {
+			display: flex;
+			flex-direction: rows;
+			align-items: center;
+			justify-content: space-around;
+		}
         #root {
             margin: 0 auto;
         }
@@ -35,12 +41,14 @@
     </form>
     <div id="root"></div>
 
+	<!-- Inclusao do scripts JS -->
     <script src="../matrizes.js"></script>
-    <script src="reflection.js"></script>
-    <script src="bresenham.js"></script>
+    <script src="reflection-ronaldd.js"></script>
+    <script src="bresenham-ronaldd.js"></script>
+
     <script>
         const root = document.getElementById('root');
-        var mat = Matrix.create(20, 20, root, pixelSize=20);
+        var mat = new Matrix(32, 32, root, pixelSize=18);
         var line;
 
         function drawLine(color) {

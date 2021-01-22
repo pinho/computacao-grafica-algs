@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testes no Console</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div id="root" style="padding: 3em;"></div>
+    <script rel="text/javascript" src="../matrizes.js"></script>
+    <script>
+        const mat = new Matrix(50, 50, document.getElementById("root"), 8);
+
+        // Algoritmo do Ponto Medio
+        
+        // Entrada
+        const ratio = 20;
+        const centerPoint = {x: 17, y: 28};
+        
+        // Inicializacao
+        var x = 0;
+		var y = ratio;
+		var e = -ratio;
+
+		var l = new Array(0);
+		l.push({x, y});
+
+		while (x <= y) {
+			e += 2*x + 1;
+			x++;
+			if (e >= 0) {
+				e += 2 - 2*y;
+				y--;
+			}
+			l.push({ x, y });
+		}
+
+		var l2 = [];
+		for (let i=0; i < l.length; i++) {
+			l2.push({ x: l[i].x, y: l[i].y });
+			l2.push({ x:-l[i].x, y: l[i].y });
+			l2.push({ x: l[i].x, y:-l[i].y });
+			l2.push({ x:-l[i].x, y:-l[i].y });
+			l2.push({ x: l[i].y, y: l[i].x });
+			l2.push({ x:-l[i].y, y: l[i].x });
+			l2.push({ x: l[i].y, y:-l[i].x });
+			l2.push({ x:-l[i].y, y:-l[i].x });
+		}
+
+		console.log(l);
+		console.log(l2);
+
+		l2.forEach(p => {
+			console.log({x: p.x+6, y: p.y+3});
+			mat.paint(p.x+centerPoint.x, p.y+centerPoint.y);
+		});
+    </script>
+</body>
+</html>

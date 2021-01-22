@@ -3,7 +3,48 @@ document.body.style.height  = '100vh';
 document.body.style.padding = '0';
 document.body.style.margin  = '0';
 
-// var NUM_MATRICES = 0;
+/**
+ * Dadas as coordenadas x e y, define qual o quadrante em que o ponto est'a. */
+function whichQuadrant(x, y) {
+	if (x >= 0) {
+		if (y >= 0) return 1;
+		else return 4;
+	} else {
+		if (y >= 0) return 2;
+		else return 3;
+	}
+}
+/**
+ * Dadas as coordenadas x e y, define em qual octante o ponto est'a. */
+function whichOctant(x, y) {
+	if (whichQuadrant(x, y) === 1) {
+		if (Math.abs(x) >= Math.abs(y)) return 1;
+		else return 2;
+	} else if (whichQuadrant(x, y) === 2) {
+		if (Math.abs(x) >= Math.abs(y)) return 4;
+		else return 3;
+	} else if (whichQuadrant(x, y) === 3) {
+		if (Math.abs(x) >= Math.abs(y)) return 5;
+		else return 6;
+	} else if (whichQuadrant(x, y) === 4) {
+		if (Math.abs(x) >= Math.abs(y)) return 8;
+		else return 7;
+	}
+}
+
+/**
+ * Representa um ponto em plano com as coordenadas numericas X e Y
+ * @param {Number} coordX coordenada do eixo X
+ * @param {Number} coordY coordenada do eixo Y
+ */
+function Point(coordX, coordY) {
+	this.x = coordX;
+	this.y = coordY;
+	this.color = 'black';
+	this.quadrant = () => whichQuadrant(this.x, this.y);
+    this.octant = () => whichOctant(this.x, this.y);
+    this.toArray = () => new Array(this.x, this.y);
+};
 
 /**
  * Cria os elementos HTML que definem a matriz de pixels e os pixels organizados 

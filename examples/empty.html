@@ -8,6 +8,44 @@
 </head>
 <body>
     <div id="root"></div>
+
     <script rel="text/javascript" src="../matrizes.js"></script>
+
+    <script>
+        const divRoot = document.getElementById('root');
+        const mat = new Matrix(50, 50, divRoot, 10);
+        const p0 = new Point(0, 0);
+        const p1 = new Point(13, 23);
+        const p2 = new Point(19, 2);
+        const pts = [p0, p1, p2];
+        pts.forEach(p => {
+            mat.paint(p.x, p.y, color='royalblue');
+        });
+
+        // Funcao para multiplicar um valor escalar por um vetor, usada para
+        // multiplicar um escalar por um ponto (par de escalares)
+        scalarVector = (scalar, vector) => vector.map(vecElem => scalar*vecElem);
+        
+        // Soma dois pontos
+        sumPoints = (a, b) => [a[0]+b[0], a[1]+b[1]];
+
+        function bezierPoint(n, controlPoints, t) {
+            var p = controlPoints.map(el => el.toArray());
+            console.log("p = ", p);
+
+            for (let r=1; r <= n; r++) {
+                for (let i=0; i <= n-r; i++) {
+                    console.log(`p[${i}] = `, p[i]);
+                    p[i] = sumPoints( 
+                        scalarVector((1 - t), p[i]), 
+                        scalarVector(t, p[i+1]) 
+                    );
+                }
+            }
+            return p[0];
+        }
+
+        console.log( bezierPoint(4, pts, 0.1) );
+    </script>
 </body>
 </html>

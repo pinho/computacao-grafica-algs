@@ -5,47 +5,6 @@
  * */
 
 /**
- * Dadas as coordenadas x e y, define qual o quadrante em que o ponto est'a. */
-function whichQuadrant(x, y) {
-	if (x >= 0) {
-		if (y >= 0) return 1;
-		else return 4;
-	} else {
-		if (y >= 0) return 2;
-		else return 3;
-	}
-}
-/**
- * Dadas as coordenadas x e y, define em qual octante o ponto est'a. */
-function whichOctant(x, y) {
-	if (whichQuadrant(x, y) === 1) {
-		if (Math.abs(x) >= Math.abs(y)) return 1;
-		else return 2;
-	} else if (whichQuadrant(x, y) === 2) {
-		if (Math.abs(x) >= Math.abs(y)) return 4;
-		else return 3;
-	} else if (whichQuadrant(x, y) === 3) {
-		if (Math.abs(x) >= Math.abs(y)) return 5;
-		else return 6;
-	} else if (whichQuadrant(x, y) === 4) {
-		if (Math.abs(x) >= Math.abs(y)) return 8;
-		else return 7;
-	}
-}
-
-/**
- * Object type Point
- * Representa um ponto em plano com as coordenadas numricas X e Y
- */
-function Point(coordX, coordY) {
-	this.x = coordX;
-	this.y = coordY;
-	this.color = 'black';
-	this.quadrant = () => whichQuadrant(this.x, this.y);
-	this.octant = () => whichOctant(this.x, this.y);
-};
-
-/**
  * Bresenham.
  * Cria um linha (lista de pontos) usando o algoritmo de Bresenham 
  * @param {Point} p1 Ponto inicial
