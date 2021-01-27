@@ -52,7 +52,8 @@ function Point(coordX, coordY) {
  * 
  * @param {Number} numOfRows o número de linhas de pixels para a matriz
  * @param {Number} numOfColumns o número de colunas de pixels para a matrix
- * @param {HTMLElement} parentElement elemento HTML que irá conter a matriz de pixels
+ * @param {HTMLElement} parentElement elemento HTML que irá conter a matriz de 
+ * pixels
  * @param {Number} pixelSize tamanho dos pixels em "px" [default = 10px]
  * @return {Array<Array<HTMLElement>>}
  */
@@ -91,7 +92,8 @@ function Matrix(numOfRows, numOfColumns, parentElement, pixelSize = 20) {
     };
 
     /**
-     * Pinta um pixel em uma dada posicao (x,y) no sistemas de coordenadas cartesiano.
+     * Pinta um pixel em uma dada posicao (x,y) no sistemas de coordenadas 
+     * cartesiano.
      * @param {Number} x coordenada no eixo X
      * @param {Number} y coordenada no eixo Y
      * @param {String} color cor para pintar o pixel
