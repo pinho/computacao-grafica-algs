@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de curvas de Bezier</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div id="root"></div>
+
+	<script rel="text/javascript" src="../matrizes.js"></script>
+	<script rel="text/javascript" src="bresenham-ronaldd.js"></script>
+	<script rel="text/javascript" src="bezierCurve.js"></script>
+
+    <script>
+        const divRoot = document.getElementById('root');
+        const mat = new Matrix(50, 50, divRoot, 8);
+        
+		// Pontos de controle
+		const controlPoints = Array(
+						new Point(1, 14), 
+						new Point(1, 43),
+						new Point(10, 3),
+						new Point(35, 14),
+						new Point(49, 49),
+						new Point(30, 20));
+
+		// Pinta os pontos de controle
+		controlPoints.forEach(p => mat.paint(p.x, p.y, color='#e9e9e9'));
+
+		bezierCurve(9, controlPoints, mat);
+    </script>
+</body>
+</html>

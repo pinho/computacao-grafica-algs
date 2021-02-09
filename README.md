@@ -5,9 +5,9 @@ no navegador usando JavaScript.
 
 ## Usage
 
-Crie um arquivo HTML básico e referencie/inclua os arquivos `matrizes.js` e `styles.css`.
-Crie um elemento no DOM para ser usado como o elemento base para adição dos elementos de
-pixels.
+Crie um arquivo HTML básico e referencie/inclua o arquivo `matrizes.js`.
+Crie um elemento no DOM para ser usado como o elemento base para adição dos
+elementos de pixels.
 
 ```html
 <!-- no head -->
