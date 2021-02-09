@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algoritmo de Bresenham</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: rows;
+      align-items: center;
+      justify-content: space-around;
+    }
+    #root {
+      margin: 0 auto;
+    }
+    .inputNumber {
+      width: 2em;
+      padding: 5px;
+      border: 1px solid royalblue;
+      font-size: 1.em;
+    }
+  </style>
+</head>
+<body>
+  <!--<form style="margin: 0 auto; max-width: 60%;">
+    <p>
+      <label>Ponto 1</label>
+      <input class="inputNumber" type="number" id="Ponto1-X" placeholder="X"/>
+      <input class="inputNumber" type="number" id="Ponto1-Y" placeholder="Y"/>
+    </p>
+
+    <p>
+      <label>Ponto 2</label>
+      <input class="inputNumber" type="number" id="Ponto2-X" placeholder="X"/>
+      <input class="inputNumber" type="number" id="Ponto2-Y" placeholder="Y"/>
+    </p>
+
+    <button onclick="drawLine('orangered')" type="submit">Desenhar</button>
+  </form>-->
+  
+  <div id="root"></div>
+
+  <!-- Inclusao do scripts JS -->
+  <script src="../../js/matrizes.js"></script>
+  <script src="../../js/bresenham.js"></script>
+
+  <script>
+    const matrix = new Matrix(30, 30, document.getElementById('root'));
+    const p1 = new Point(0, 3);
+    const p2 = new Point(12, 23);
+    var line = new Bresenham(p1, p2);
+
+    line.allPoints.forEach(p => matrix.paint(p.x, p.y));
+  </script>
+</body>
+</html>
