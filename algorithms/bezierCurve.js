@@ -41,6 +41,11 @@ function roundAll(arr) {
     return arr.map(el => Math.round(el))
 }
 
+/**
+ * Algoritmo de Casteljau.
+ * @param {Array} points Pontos de controle
+ * @param {Number} t Valor de T
+ */
 function casteljau(points, t) {
     const N = points.length-1;
     var pts = new Array(N);

@@ -1,9 +1,6 @@
-* {padding: 0; margin: 0;}
-
-#wrapper {
-    width: 100%;
-    height: 100vh;
-    background-color: whitesmoke;
+* {
+    padding: 0;
+    margin: 0;
 }
 
 /* Fontes locais */
@@ -12,43 +9,166 @@
     src: url("../fonts/Pixelmania.ttf") format("truetype");
 }
 
+:root {
+    --main-bg-color: #0b090a;
+    --main-fg-color: #ffffff;
+    --highlight: #2ec4b6;
+    --border: #161a1d;
+}
+
+.bordered {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+}
+
+.centered {
+    margin: 0 auto;
+}
+
+div.btn {
+    padding: .3em .9em;
+    margin-block: .5em;
+    cursor: pointer;
+    background-color: var(--highlight);
+    border-radius: 6px;
+    width: fit-content;
+    width: -moz-fit-content;
+    max-width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+}
+div.btn:hover {
+    background-color: #aacc00;
+}
+
+#page-wrapper {
+    min-width: 100%;
+    min-height: 100vh;
+    background-color: var(--main-bg-color);
+}
+
+body * {
+    color: var(--main-fg-color);
+}
+
 #main-container {
     margin: 0 auto;
     max-width: 96%;
     width: 60%;
-    padding: 2em;
+    padding: 3em;
 }
+
 #main-container > h1 {
     font-family: 'Pixelmania', serif;
     font-weight: 500;
-    font-size: 44px;
+    font-size: 30px;
     width: 100%;
     text-align: center;
     margin-block: 1em;
+    color: var(--main-fg-color);
 }
+
 #main-container > ul {
     list-style: none;
-    margin: 0 auto;
+    margin: 5em auto;
     display: grid;
     grid-template-columns: 33% 33% 33%;
 }
+
 #main-container > ul > a > li {
-    font-family: Roboto, Arial, sans-serif;
-    font-size: 18px;
-    padding: .5em;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3em;
+    padding: .75em .6em;
     text-align: center;
     font-weight: 600;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--main-fg-color);
 }
+#main-container > ul > a > li:hover {
+    color: var(--highlight);
+    border-color: var(--highlight);
+}
+
 #main-container > ul > a {
-    color: #333;
     text-decoration: none;
-    margin: 24px 8px;
-    transition: border-radius ease-out .333s;
-}
-#main-container > ul > a:hover {
-    color: whitesmoke;
-    background-color: slateblue;
-    border-radius: 12px;
+    outline: none;
+    margin: 1.5em .75em;
 }
 
+/*******************************************************************************
+ * Definicoes para as paginas de apresentacao dos resultados 
+*******************************************************************************/
+#page-wrapper h1.title {
+    font-family: 'Pixelmania', Arial, sans-serif;
+    font-size: 1.6em;
+    width: 80%;
+    text-align: center;
+    padding: 1em;
+}
 
+#page-wrapper > .two-col-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.two-col-container .child-column-div {
+    margin-block: 2em;
+}
+
+/*******************************************************************************
+ * Formulario de entrada de dados 
+ ******************************************************************************/
+.two-col-container .form-container {
+    padding: 3em;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.two-col-container .form-container .input-pair {
+    padding: 1em 0px;
+}
+
+.two-col-container .form-container input[type="number"] {
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--main-bg-color);
+    padding: 3px;
+    margin: 4px;
+    width: 2.5em;
+    color: #fff;
+    text-align: center;
+}
+.two-col-container .form-container
+input[type="number"]::selection {
+    border-color: var(--border);
+}
+
+/** Remove as setas das entradas de numeros **/
+.no-spinners {
+    -moz-appearance:textfield;
+}
+.no-spinners::-webkit-outer-spin-button,
+.no-spinners::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/*******************************************************************************
+ * Resultados dos algoritmos 
+ ******************************************************************************/
+.two-col-container .result-container {
+    min-width: 600px;
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* .two-col-container .result-container
+#matrix-container {
+    
+} */
