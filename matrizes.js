@@ -120,6 +120,20 @@ function Matrix(numOfRows, numOfColumns, parentElement, pixelSize = 20) {
             p.style.borderColor = color;
         }
     };
+
+    /**
+     * Limpa tudo que foi desenhado nos elementos da matriz, pintando todos os
+     * pixels de branco.
+     */
+    this.clean = function() {
+        for (let i=0; i < this.width; i++) {
+            for (let k=0; k < this.height; k++) {
+                let p = this.getPixel(i, k);
+                p.style.backgroundColor = 'white';
+                p.style.borderColor = '#eee';
+            }
+        }
+    };
 }
 
 // TODO: Documentar a matrix com quadrantes
