@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rasterização de Elipses</title>
+  <link rel="stylesheet" type="text/css" href="../../css/global.css" />
+</head>
+<body>
+  
+  <div id="page-wrapper">
+    <h1 class="title centered">RASTERIZAR ELIPSES</h1>
+
+    <div class="two-col-container">
+
+      <div class="child-column-div form-container bordered">
+        <!-- TODO: Adicionar o formulario com as entradas pro algoritmo -->
+        <div id="btn-clean" class="btn centered">Limpar</div>
+        <div id="btn-run" class="btn centered">Executar</div>
+      </div>
+
+      <div class="child-column-div result-container bordered">
+        <div id="matrix-container">
+          <!-- A Matriz vem aqui -->
+        </div>
+      </div>
+
+    </div>  
+  </div>
+
+  <!-- Inclusao do scripts JS -->
+  <script src="../../../matrizes.js"></script>
+
+  <script>
+    const matrix = new Matrix(30, 30, document.getElementById('matrix-container'), 16);
+
+    // Adiciona a funcao do botao Limpar
+    document.getElementById('btn-clean').onclick = function() {
+      matrix.clean();
+    };
+    
+    // Adiciona a funcao do botao Executar
+    document.getElementById('btn-run').onclick = function() {
+      // TODO: Logica da leitura dos dados de entrada e execucao do algoritmo
+    }
+  </script>
+</body>
+</html>

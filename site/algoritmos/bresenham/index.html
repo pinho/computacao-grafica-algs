@@ -46,8 +46,8 @@
   </div>
 
   <!-- Inclusao do scripts JS -->
-  <script src="../../js/matrizes.js"></script>
-  <script src="../../js/bresenham.js"></script>
+  <script src="../../../matrizes.js"></script>
+  <script src="./bresenham.js"></script>
 
   <script>
     const matrix = new Matrix(30, 30, document.getElementById('matrix-container'), 16);
@@ -70,13 +70,8 @@
 
     // Adiciona a funcao do botao Limpar
     document.getElementById('btn-clean').onclick = function() {
-        matrix.clean();
+      matrix.clean();
     };
-
-    // const p1 = new Point(0, 3);
-    // const p2 = new Point(12, 23);
-    // var line = new Bresenham(p1, p2);
-    // line.allPoints.forEach(p => matrix.paint(p.x, p.y));
   </script>
 </body>
 </html>
