@@ -10,24 +10,21 @@ Crie um elemento no DOM para ser usado como o elemento base para adição dos
 elementos de pixels.
 
 ```html
-<!-- no head -->
-<head>
-  ...
-  <link rel="stylesheet" type="text/css" href="styles.css"/>
-<head>
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <title>Matrizes.js</title>
+  <head>
+  <body>
+    <div id="root"></div>
 
-<!-- no body -->
-<body>
-  <div id="root">
-  </div>
-
-  <!-- É sempre uma boa prática adicionar scripts no fim do documento -->
-  <script src="matrizes.js"></script>
-
-  <script>
-    // Seu código aqui ...
-  </script>
-</body>
+    <!-- É sempre uma boa prática adicionar scripts no fim do documento -->
+    <script src="matrizes.js"></script>
+    <script>
+      // Seu código aqui ...
+    </script>
+  </body>
+</html>
 ```
 
 ### Criando uma matriz
@@ -40,9 +37,6 @@ Dentro da tag `<script>`, depois da tag que referencia o arquivo `matrizes.js`:
 // Matrix que possui uma matriz (array de arrays) com todos os elementos
 // menores (do tipo HTMLElement).
 const matriz = new Matrix(30, 30, document.getElementById("root"));
-
-// matriz é um Array<Array<HTMLElement>>, com 30 Arrays, cada um contendo um
-// Array de 30 elementos HTML
 
 // Pinta de preto o elemento div nas coordenadas (x=10, y=10)
 matriz.paint(10, 10);
