@@ -69,19 +69,22 @@ function casteljau(points, t) {
  * @param {Array<Point>} controlPoints lista de coordenadas dos pontos de 
  * controle que definem a curva.
  */
-function bezierCurve(numberT, controlPoints, matrix) {
+function BezierCurve(numberT, controlPoints) {
+    this.controlPoints = controlPoints;
+    this.curvePoints = [];
+
     // Transformar a lista de pontos em lista de arrays
     var pointsAsArray = controlPoints.map(p => p.toArray());
 
     // Definir os valores de T para os quais serao calculados os pontos
     const intervalo = 1/(numberT+1);
-    var tList = new Array(0);
+    this.tList = new Array(0);
     for (let i=intervalo; i < 1; i += intervalo) {
-        tList.push(i);
+        this.tList.push(i);
     }
 
     // Para cada T, calcular um ponto da curva com o algoritmo de Casteljau
-    var calculatedPoints = tList.map(t => {
+    var calculatedPoints = this.tList.map(t => {
         return casteljau(pointsAsArray, t);
     });
     calculatedPoints.unshift(pointsAsArray[0]); // Adiciona o ponto inicial
@@ -94,7 +97,7 @@ function bezierCurve(numberT, controlPoints, matrix) {
         // Cria a linha usando o Bresenham
         const line = new Bresenham(p0, p1).allPoints;
         line.forEach(p => {
-            matrix.paint(p.x, p.y);
+            this.curvePoints.push(new Point(p.x, p.y));
         });
     }
 }
