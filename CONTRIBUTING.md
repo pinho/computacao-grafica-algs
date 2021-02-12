@@ -25,24 +25,21 @@ A estrutura de diretórios do site deve sempre se manter parecida com:
 
 ```raw
 site
-├── algorithms
+├── algoritmos
 │   ├── bresenham
-│   │   └── index.html
+│   │   ├── index.html
+│   │   └── bresenham.js
 │   ├── <algoritmoA>
-│   │   └── index.html
+│   │   ├── index.html
+│   │   └── <algoritmoA>.js
 │   └── <algoritmoB>
-│       └── index.html
+│       ├── index.html
+│       └── <algoritmoB>.js
 ├── css
 │   └── global.css
 ├── fonts
 │   └── Pixelmania.ttf
 ├── index.html
-└── js
-    ├── bresenham.js
-    ├── <algoritmoA>.js
-    ├── <algoritmoB>.js
-    ├── <algoritmoC>.js
-    └── matrizes.js
 ```
 
 ## Desenvolvimento das páginas
@@ -52,7 +49,7 @@ Toda página que irá mostrar resultados de algoritmos com a matiz de pixels
 deverá obedecer um template HTML para que fiquem padronizadas. 
 
 Toda página deve obedecer a estrutura de diretórios e estar contida no diretório
-`./algorithms`. Um subdiretório com o nome do algoritmo deve ser criado e um
+`./algoritmos`. Um subdiretório com o nome do algoritmo deve ser criado e um
 arquivo `index.html` deve ser criado dentro dele.
 
 ### CSS
@@ -64,9 +61,8 @@ HTML com uma quantidade mínima de código CSS nas tags `<style>`.
 
 ### JS
 Os algoritmos de computação gráfica (como o Bresenham, Curvas de Bezier, etc)
-são desenvolvidos em JavaScript e deverão ser colocados em um diretório
-específico chamado `js`. Cada algoritmo deve ser implementado em um único
-arquivo fonte JavaScript (`.js`).
+são desenvolvidos em JavaScript e deverão ser colocados nos respectivos
+subdiretórios dentro do diretório `./algoritmos`.
 
 Deve-se usar funções contrutoras para simular o estilo de programação orientação
 a objetos e manter o código padronizado e o mais legível possível. Por exemplo
@@ -79,3 +75,8 @@ const x = new Point(2, 3);
 const x = {x: 2, y: 3}
 ```
 
+É recomendado que os algoritmos não pintem a matriz dentro da sua execução, e
+sim retornem os índices dos pontos para que sejam pintados fora do algoritmo.
+Essa regra pode ser ignorada caso o número de pontos seja considerado grande,
+dessa forma pintar conforme os pontos são definidos pelo algoritmo consome menos
+memória do que armazenar as informações de todos os pontos em um Array.
