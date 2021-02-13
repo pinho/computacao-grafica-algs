@@ -1,10 +1,23 @@
 
+function reflection(listOfPoints, listOfPointsReflected, x, y) {
+    for (let i=0; i < listOfPoints.length; i++) {
+        listOfPointsReflected.push({ x: listOfPoints[i].x + x, y: listOfPoints[i].y + y });
+        listOfPointsReflected.push({ x:-listOfPoints[i].x + x, y: listOfPoints[i].y + y });
+        listOfPointsReflected.push({ x: listOfPoints[i].x + x, y:-listOfPoints[i].y + y });
+        listOfPointsReflected.push({ x:-listOfPoints[i].x + x, y:-listOfPoints[i].y + y });
+        listOfPointsReflected.push({ x: listOfPoints[i].y + x, y: listOfPoints[i].x + y });
+        listOfPointsReflected.push({ x:-listOfPoints[i].y + x, y: listOfPoints[i].x + y });
+        listOfPointsReflected.push({ x: listOfPoints[i].y + x, y:-listOfPoints[i].x + y });
+        listOfPointsReflected.push({ x:-listOfPoints[i].y + x, y:-listOfPoints[i].x + y });
+    }
+    return listOfPointsReflected;
+}
+
 function Circle(pointX, pointY, r) {
     // Algoritmo do Ponto Medio
     const ratio = r;
     const centerPoint = {x: pointX, y: pointY};
 
-    console.log("No projeto: " + centerPoint.x + " - " + centerPoint.y)
     var listOfPoints = new Array(0);
     this.listOfPointsReflected = [];
    
@@ -26,18 +39,4 @@ function Circle(pointX, pointY, r) {
     }
     
     this.listOfPointsReflected = reflection(listOfPoints, this.listOfPointsReflected, centerPoint.x, centerPoint.y);
-}
-
-function reflection(listOfPoints, listOfPointsReflected, x, y) {
-    for (let i=0; i < listOfPoints.length; i++) {
-        listOfPointsReflected.push({ x: listOfPoints[i].x + x, y: listOfPoints[i].y + y });
-        listOfPointsReflected.push({ x:-listOfPoints[i].x + x, y: listOfPoints[i].y + y });
-        listOfPointsReflected.push({ x: listOfPoints[i].x + x, y:-listOfPoints[i].y + y });
-        listOfPointsReflected.push({ x:-listOfPoints[i].x + x, y:-listOfPoints[i].y + y });
-        listOfPointsReflected.push({ x: listOfPoints[i].y + x, y: listOfPoints[i].x + y });
-        listOfPointsReflected.push({ x:-listOfPoints[i].y + x, y: listOfPoints[i].x + y });
-        listOfPointsReflected.push({ x: listOfPoints[i].y + x, y:-listOfPoints[i].x + y });
-        listOfPointsReflected.push({ x:-listOfPoints[i].y + x, y:-listOfPoints[i].x + y });
-    }
-    return listOfPointsReflected;
 }
