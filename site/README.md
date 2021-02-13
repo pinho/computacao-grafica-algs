@@ -39,7 +39,7 @@ google-chrome site/index.html
 - [X] Elipses
 - [X] Curvas de Beziér
 - [X] Prenchimento
-- [ ] Polilinhas
+- [X] Polilinhas
 - [ ] Recorte de Linha
 - [ ] Recorte de Polígono
 - [ ] Transformações: Translação
