@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curvas de Beziér</title>
+  <link rel="stylesheet" type="text/css" href="../../css/global.css" />
+  <style>
+  #output {
+  	text-align: center;
+  	font-size: 15px;
+  	padding: 1em .2em;
+  }
+  #output > p {
+  	width: 100%;
+  }
+  </style>
+</head>
+<body>
+  
+  <div id="page-wrapper">
+    <h1 class="title centered">POLILINHAS</h1>
+
+    <div class="two-col-container">
+
+      <div class="child-column-div form-container bordered">
+        <!-- TODO: Adicionar o formulario com as entradas pro algoritmo -->
+        <div>
+          <span>Ponto</span>
+          <input type="number" id="ponto-x" class="no-spinners" placeholder="X" />
+          <input type="number" id="ponto-y" class="no-spinners" placeholder="Y" />
+        </div>
+
+        <div id="btn-add-point" class="btn centered">Adicionar Ponto</div>
+        <div id="btn-clean" class="btn centered">Limpar</div>
+        <div id="btn-run" class="btn centered">Executar</div>
+
+        <!-- Aqui vao ser mostrados os pontos adicionados -->
+        <div id="output">
+          <p>0 pontos selecionados</p>
+        </div>
+      </div>
+
+      <div class="child-column-div result-container bordered">
+        <div id="matrix-container">
+          <!-- A Matriz vem aqui -->
+        </div>
+      </div>
+
+    </div>  
+  </div>
+
+  <!-- Inclusao do scripts JS -->
+  <script src="../../../matrizes.js"></script>
+  <script src="../bresenham/bresenham.js"></script>
+
+  <script>
+    const matrix = new Matrix(30, 30, document.getElementById('matrix-container'), 16);
+    const outputContainer = document.getElementById('output');
+    var inputPoints = [];
+
+    function createPointFromId(elementId) {
+      let inputX = document.getElementById(`${elementId}-x`).value;
+      let inputY = document.getElementById(`${elementId}-y`).value;
+      let x = Number(inputX), y = Number(inputY);
+      return new Point(x, y);
+    }
+
+    document.getElementById('btn-add-point').onclick = function() {
+      // Ler o ponto definido nas entradas de numeros
+      let point = createPointFromId('ponto');
+      inputPoints.push(point);
+      matrix.paint(point.x, point.y, 'springgreen');
+
+      // Mostrar os pontos ja selecionados
+      document.querySelector("#output > p").innerText = `${inputPoints.length} pontos selecionados`;
+      let newP = document.createElement('p');
+      newP.innerText = `P${inputPoints.length} = (${point.x}, ${point.y})`;
+      document.getElementById('output').appendChild(newP);
+    }
+
+    // Adiciona a funcao do botao Limpar
+    // Limpa a matriz, mas tambem tem que remover todos os pontos da lista e limpar a saida
+    document.getElementById('btn-clean').onclick = function() {
+      matrix.clean();
+      inputPoints = [];
+      let output = document.getElementById('output');
+      while (output.firstChild) {
+      	output.removeChild(output.firstChild);
+      }
+      output.innerHTML = '<p>0 pontos selecionados</p>';
+    }
+    
+    // Adiciona a funcao do botao Executar
+    document.getElementById('btn-run').onclick = function() {
+      if (inputPoints.length < 3) {
+        console.error("Necessario ter pelo menos 3 pontos adicionados!");
+        return
+      }
+
+      inputPoints.forEach(p => matrix.paint(p.x, p.y, 'white'));
+      
+      for (let i=0; i < inputPoints.length-1; i++) {
+        let line = new Bresenham(inputPoints[i], inputPoints[i+1]);
+        line.allPoints.forEach(p => matrix.paint(p.x, p.y));
+      }
+      let lastLine = new Bresenham(inputPoints[0], inputPoints[inputPoints.length-1]);
+      lastLine.allPoints.forEach(p => matrix.paint(p.x, p.y));
+    }
+  </script>
+</body>
+</html>

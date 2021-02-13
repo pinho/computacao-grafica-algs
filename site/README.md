@@ -1,5 +1,10 @@
 # Site de apresentação do projeto
 
+* [Abrindo localmente](#Abrindo-localmente)
+* [Lista de Algoritmos](#Lista-de-algoritmos)
+
+## Abrindo localmente
+
 Os algoritmos de computação gráfica implementados em JavaScript foram 
 organizados para serem apresentados em páginas HTML interativas.
 Para abrir o site é necessário clonar esse repositório e abrir os arquivos HTML
@@ -27,17 +32,18 @@ firefox site/index.html
 google-chrome site/index.html
 ```
 
-Uma alternativa é usar o pacote `http-server` do Node, e iniciar o site como um
-servidor escutando em uma porta.
+## Lista de Algoritmos
 
-```sh
-# Instalar o http-server (preciser ter o node instalado)
-npm install -g http-server
-
-# Iniciar o server
-cd matrizes-js
-http-server site
-```
-
-Agora é só abrir o navegador e acessar `http://localhost:8080` e ser feliz :)
-
+- [X] Bresenham
+- [X] Círculos
+- [X] Elipses
+- [X] Curvas de Beziér
+- [X] Prenchimento
+- [X] Polilinhas
+- [ ] Recorte de Linha
+- [ ] Recorte de Polígono
+- [ ] Transformações: Translação
+- [ ] Transformações: Rotação
+- [ ] Transformações: Escala
+- [ ] Projeções
+- [ ] Perspectiva
