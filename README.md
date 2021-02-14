@@ -42,6 +42,19 @@ const matriz = new Matrix(30, 30, document.getElementById("root"));
 matriz.paint(10, 10);
 ```
 
+Exemplo, o codigo abaixo gera o seguinte resultado:
+
+```js
+root.style.display = 'flex';
+root.style.justifyContent = 'center';
+root.style.alignItems = 'center';
+
+const matriz = new Matrix(30, 30, root);
+
+```
+
+![Screenshot](img/Screenshot_Matrizesjs.png)
+
 ---
 
 OBS: Biblioteca em desenvolvimento
