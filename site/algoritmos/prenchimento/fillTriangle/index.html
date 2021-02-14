@@ -4,22 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rasterização de Círculos</title>
-  <link rel="stylesheet" type="text/css" href="../../css/global.css" />
+  <link rel="stylesheet" type="text/css" href="../../../css/global.css" />
 </head>
 <body>
   
   <div id="page-wrapper">
-    <h1 class="title centered">RASTERIZAR CIRCULOS</h1>
+    <h1 class="title centered">PREENCHER TRIANGULO</h1>
 
     <div class="two-col-container">
 
       <div class="child-column-div form-container bordered">
         <div id="point-a" class="input-pair">
-          <span>Ponto</span>
+          <span>Ponto 1</span>
           <input type="number" class="no-spinners" id="ponto-a-x" placeholder="X"/>
           <input type="number" class="no-spinners" id="ponto-a-y" placeholder="Y"/>
-          <input type="number" class="no-spinners" id="ponto-a-r" placeholder="Raio"/>
         </div>
+
+        <div id="point-b" class="input-pair">
+          <span>Ponto 2</span>
+          <input type="number" class="no-spinners" id="ponto-b-x" placeholder="X"/>
+          <input type="number" class="no-spinners" id="ponto-b-y" placeholder="Y"/>
+        </div>
+
+        <div id="point-c" class="input-pair">
+          <span>Ponto 3</span>
+          <input type="number" class="no-spinners" id="ponto-c-x" placeholder="X"/>
+          <input type="number" class="no-spinners" id="ponto-c-y" placeholder="Y"/>
+        </div>
+
+        <div id="point-center" class="input-pair">
+          <span>Centro</span>
+          <input type="number" class="no-spinners" id="ponto-center-x" placeholder="X"/>
+          <input type="number" class="no-spinners" id="ponto-center-y" placeholder="Y"/>
+        </div>
+
         <div id="btn-clean" class="btn centered">Limpar</div>
         <div id="btn-run" class="btn centered">Executar</div>
       </div>
@@ -33,8 +51,8 @@
   </div>
 
   <!-- Inclusao do scripts JS -->
-  <script src="../../../matrizes.js"></script>
-  <script src="./circle.js"></script>
+  <script src="../../../../matrizes.js"></script>
+  <script src="./fillTriangle.js"></script>
 
   <script>
     const matrix = new Matrix(30, 30, document.getElementById('matrix-container'), 16);
@@ -43,19 +61,19 @@
     const createPointFrom = function(elementId) {
       let inputX = document.getElementById(`${elementId}-x`).value;
       let inputY = document.getElementById(`${elementId}-y`).value;
-      let inputR = document.getElementById(`${elementId}-r`).value;
-      let x = Number(inputX), y = Number(inputY), r = Number(inputR);
-      
-      console.log(r);
-
-      return {center: new Point(x, y), ratio: r};
+      let x = Number(inputX), y = Number(inputY);
+      return new Point(x, y);
     };
 
     // Adiciona a funcao do botao Executar
     document.getElementById('btn-run').onclick = function() {
       const p1 = createPointFrom('ponto-a');
-      var line = new Circle(p1.center.x, p1.center.y, p1.ratio);
-      line.listOfPointsReflected.forEach(p => matrix.paint(p.x, p.y));
+      const p2 = createPointFrom('ponto-b');
+      const p3 = createPointFrom('ponto-c');
+      const center = createPointFrom('ponto-center');
+      var line = new FillTriangle(p1, p2, p3, center);
+      console.log(line.pointList)
+      line.pointList.forEach(p => matrix.paint(p.x, p.y));
     }
 
 
