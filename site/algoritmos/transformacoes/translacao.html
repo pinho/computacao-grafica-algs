@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformacoes - Translacao</title>
+    <link rel="stylesheet" type="text/css" href="../../css/global.css"/>
+    <style>
+      div.spaced-block {
+        margin-block: 24px;
+        padding: 8px;
+      }
+      .form-container > div {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+      }
+    </style>
+</head>
+<body>
+  <div id="page-wrapper">
+    <h1 class="title centered">TRANSLACAO</h1>
+    <div class="two-col-container">
+
+      <div class="child-column-div form-container bordered">
+        <div>
+          <span>Ponto</span>
+          <input type="number" class="no-spinners" id="ponto-x" placeholder="X"/>
+          <input type="number" class="no-spinners" id="ponto-y" placeholder="Y"/>
+        </div>
+        <div id="btn-add-point" class="btn centered">Adicionar Ponto</div>
+        <div id="btn-clean" class="btn centered">Limpar</div>
+        <div id="btn-run" class="centered btn">Desenhar</div>
+        <p style="margin-top: 30px;">Coordenadas para a Translacao</p>
+        <div class="spaced-block bordered">
+          <span>Coord.:</span>
+          <input type="number" class="no-spinners" id="move-x" placeholder="X"/>
+          <input type="number" class="no-spinners" id="move-y" placeholder="Y"/>
+        </div>
+        <div id="btn-move" class="centered btn">Mover</div>
+      </div>
+
+      <div class="child-column-div result-container bordered">
+        <div id="matrix-container"><!-- A matriz vem aqui --></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../../../matrizes.js"></script>
+  <script src="../bresenham/bresenham.js"></script>
+
+  <script>
+    function Translation(distanceX, distanceY) {
+      this.x = distanceX;
+      this.y = distanceY;
+      // Funcao recebe um conjunto de pontos para mover
+      this.move = (points) => {
+        return points.map(p => new Point(p.x+this.x, p.y+this.y));
+      };
+    }
+  </script>
+
+  <script>
+    const matrix = new Matrix(30, 30, document.getElementById('matrix-container'), 16);
+    var inputPoints = [];
+    var draw = [];
+
+    function createPointFromId(elementId) {
+      let x = Number(document.getElementById(`${elementId}-x`).value);
+      let y = Number(document.getElementById(`${elementId}-y`).value);
+      return new Point(x, y);
+    }
+
+    // Ler o ponto definido nas entradas de numeros
+    document.getElementById('btn-add-point').onclick = function() {
+      let point = createPointFromId('ponto');
+      inputPoints.push(point);
+      matrix.paint(point.x, point.y, 'springgreen');
+    }
+
+    // Limpa a Matriz
+    document.getElementById('btn-clean').onclick = function() {
+      matrix.clean();
+      inputPoints = [];
+      draw = [];
+    }
+
+    // Botao Executar: Desenha o Poligono
+    document.getElementById('btn-run').onclick = function() {
+      if (inputPoints.length < 3) {
+        console.error("Necessario ter pelo menos 3 pontos adicionados!");
+        return
+      }
+      inputPoints.forEach(p => matrix.paint(p.x, p.y, 'white'));
+      
+      for (let i=0; i < inputPoints.length-1; i++) {
+        let line = new Bresenham(inputPoints[i], inputPoints[i+1]);
+        line.allPoints.forEach(p => {
+          matrix.paint(p.x, p.y);
+          draw.push(p);
+        });
+      }
+      let lastLine = new Bresenham(inputPoints[0], inputPoints[inputPoints.length-1]);
+      lastLine.allPoints.forEach(p => {
+        matrix.paint(p.x, p.y);
+        draw.push(p);
+      });
+    }
+
+    // Botao Mover:
+    // Pega as entradas das coordenadas de translacao e move o desenho na tela.
+    document.getElementById('btn-move').onclick = function() {
+      let moveX = Number(document.getElementById('move-x').value);
+      let moveY = Number(document.getElementById('move-y').value);
+      matrix.clean();
+
+      let tran = new Translation(moveX, moveY);
+      console.log(draw);
+      draw = tran.move(draw);
+      console.log(draw);
+      draw.forEach(p => matrix.paint(p.x, p.y));
+    }
+
+  </script>
+</body>
+</html>
