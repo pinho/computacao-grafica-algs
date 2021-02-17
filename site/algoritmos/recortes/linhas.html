@@ -64,6 +64,7 @@
   <script src="../../../matrizes.js"></script>
   <script src="../bresenham/bresenham.js"></script>
   <script src="./CohenSutherland.js"></script>
+  <script src="./Cohen.js"></script>
 
   <script>
     const matrix = new Matrix(30, 30, document.getElementById('matrix-container'), 16);
@@ -118,7 +119,20 @@
       matrix.paint(p1.x, p1.y, 'white');
 
       let b = new Bounds(bounds);
-      let linha = recorte(b, p1, p2);
+      // let linha = recorte(b, p1, p2);
+      let recorte = new CohenSutherlandLineClip(p1.x, p1.y, p2.x, p2.y, b.xMin, b.xMax, b.yMin, b.yMax);
+
+      let px =  new Point(recorte.p1.x, recorte.p1.y);
+      let py =  new Point(recorte.p2.x, recorte.p2.y);
+      
+      console.log(px);
+      console.log(py);
+
+      var linha = new Bresenham(px, py);
+
+      console.log("Recorte:", recorte);
+
+      console.log("Bresenham", linha);
 
       // Pinta os pixels da linha resultante
       if (linha) {
