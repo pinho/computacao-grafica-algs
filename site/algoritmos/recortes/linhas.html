@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algoritmo de Bresenham</title>
+  <link rel="stylesheet" type="text/css" href="../../css/global.css" />
+  <style>
+    body {
+      display: flex;
+      flex-direction: rows;
+      align-items: center;
+      justify-content: space-around;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="page-wrapper">
+
+    <h1 class="title centered">RECORTE DE LINHAS</h1>
+
+    <div class="two-col-container">
+
+      <div class="child-column-div form-container bordered">
+        <div class="input-pair">
+		  <span>Janela de interesse (X)<br></span>
+		  <input type="number" class="no-spinners" id="ponto-limite-min-x" placeholder="X Min." value="5"/>
+		  <input type="number" class="no-spinners" id="ponto-limite-max-x" placeholder="X Max." value="25"/>
+		</div>
+		<div class="input-pair">
+		  <span>Janela de interesse (Y)<br></span>
+		  <input type="number" class="no-spinners" id="ponto-limite-min-y" placeholder="Y Min." value="5"/>
+		  <input type="number" class="no-spinners" id="ponto-limite-max-y" placeholder="Y Max." value="25"/>
+		</div>
+		<div id="btn-preview" class="btn centered">Definir Janela</div>
+
+		<br><br>
+		
+        <div id="point-a" class="input-pair">
+          <span>Ponto A</span>
+          <input type="number" class="no-spinners" id="ponto-a-x" placeholder="X"/>
+          <input type="number" class="no-spinners" id="ponto-a-y" placeholder="Y"/>
+        </div>
+        <div id="point-b" class="input-pair">
+          <span>Ponto B</span>
+          <input type="number" class="no-spinners" id="ponto-b-x" placeholder="X"/>
+          <input type="number" class="no-spinners" id="ponto-b-y" placeholder="Y"/>
+        </div>
+        <div id="btn-view-points" class="btn centered">Ver Pontos</div>
+        <div id="btn-clean" class="btn centered">Limpar</div>
+        <div id="btn-run" class="btn centered">Executar</div>
+      </div>
+
+      <div class="child-column-div result-container bordered">
+        <div id="matrix-container"><!-- A Matriz vem aqui --></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Inclusao do scripts JS -->
+  <script src="../../../matrizes.js"></script>
+  <script src="../bresenham/bresenham.js"></script>
+  <script src="./CohenSutherland.js"></script>
+  <script src="./Cohen.js"></script>
+
+  <script>
+    const matrix = new Matrix(30, 30, document.getElementById('matrix-container'), 16);
+    const bounds = {xMax: matrix.width-1, xMin: 0, yMax: matrix.height-1, yMin: 0};
+    getBounds();
+
+    // Funcao para criar pontos a partir do 
+    function createPointFrom(elementId) {
+      let inputX = document.getElementById(`${elementId}-x`).value;
+      let inputY = document.getElementById(`${elementId}-y`).value;
+      let x = Number(inputX), y = Number(inputY);
+      return new Point(x, y);
+    };
+
+    function getBounds() {
+      bounds.xMin = Number(document.getElementById('ponto-limite-min-x').value);
+      bounds.xMax = Number(document.getElementById('ponto-limite-max-x').value);
+      bounds.yMin = Number(document.getElementById('ponto-limite-min-y').value);
+      bounds.yMax = Number(document.getElementById('ponto-limite-max-y').value);
+    }
+
+    // Funcao do botao visualizar janela
+    document.getElementById('btn-preview').onclick = function() {
+      getBounds();
+      for (let x=0; x < matrix.width; x++) {
+        for (let y=0; y < matrix.height; y++) {
+          let pixel = matrix.getPixel(x, y);
+          if (x < bounds.xMin || x > bounds.xMax || y < bounds.yMin || y > bounds.yMax) {
+            pixel.style.backgroundColor = '#f4f4f4';
+          } else {
+            if (pixel.style.backgroundColor === '#f4f4f4') {
+              pixel.style.backgroundColor = 'white';
+            }
+          }
+        }
+      }
+    }
+
+    document.getElementById('btn-view-points').onclick = function() {
+      let p1 = createPointFrom('ponto-a');
+      let p2 = createPointFrom('ponto-b');
+      matrix.paint(p1.x, p1.y, 'orangered');
+      matrix.paint(p2.x, p2.y, 'orangered');
+    }
+    
+    // Adiciona a funcao do botao Executar
+    document.getElementById('btn-run').onclick = function() {
+      getBounds();
+      const p1 = createPointFrom('ponto-a');
+      const p2 = createPointFrom('ponto-b');
+      matrix.paint(p1.x, p1.y, 'white');
+      matrix.paint(p1.x, p1.y, 'white');
+
+      let b = new Bounds(bounds);
+      // let linha = recorte(b, p1, p2);
+      let recorte = new CohenSutherlandLineClip(p1.x, p1.y, p2.x, p2.y, b.xMin, b.xMax, b.yMin, b.yMax);
+
+      let px =  new Point(recorte.p1.x, recorte.p1.y);
+      let py =  new Point(recorte.p2.x, recorte.p2.y);
+      
+      console.log(px);
+      console.log(py);
+
+      var linha = new Bresenham(px, py);
+
+      console.log("Recorte:", recorte);
+
+      console.log("Bresenham", linha);
+
+      // Pinta os pixels da linha resultante
+      if (linha) {
+        linha.allPoints.forEach(p => matrix.paint(p.x, p.y));
+      }
+      console.log('Resultado de recorte:', linha);
+    }
+
+    // Adiciona a funcao do botao Limpar
+    document.getElementById('btn-clean').onclick = function() {
+      matrix.clean();
+    };
+  </script>
+</body>
+</html>
