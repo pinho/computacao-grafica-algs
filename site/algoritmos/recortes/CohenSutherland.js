@@ -45,7 +45,7 @@ function recorte(bounds, p1, p2) {
     if (triviallyAccepted(codeP1, codeP2)) {
         linha = Bresenham(p1, p2);
     } else if (triviallyRejected(codeP1, codeP2)) {
-        console.warn("Trivialmente Rejeitado! Linha fora da janela de interesse.");
+        // console.warn("Trivialmente Rejeitado! Linha fora da janela de interesse.");
     } else {
         let newP1 = {};
         Object.assign(newP1, p1);
@@ -55,13 +55,13 @@ function recorte(bounds, p1, p2) {
         let xm = Math.round((newP1.x + newP2.x)/2);
         let ym = Math.round((newP1.y + newP2.y)/2);
         let pointM = new Point(xm, ym);
-        console.log(pointM);
+        // console.log(pointM);
 
         let linha1 = recorte(bounds, p1, pointM);
-        console.log(linha1);
+        // console.log(linha1);
 
         let linha2 = recorte(bounds, pointM, p2);
-        console.log(linha2);
+        // console.log(linha2);
 
         linha.allPoints = linha1.allPoints.concat(linha2.allPoints);
     }
