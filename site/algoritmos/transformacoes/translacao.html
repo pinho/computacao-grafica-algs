@@ -116,9 +116,9 @@
       let moveY = Number(document.getElementById('move-y').value);
       matrix.clean();
 
-      let tran = new Translation(moveX, moveY);
+      let translation = new Translation(moveX, moveY);
       console.log(draw);
-      draw = tran.move(draw);
+      draw = translation.move(draw);
       console.log(draw);
       draw.forEach(p => matrix.paint(p.x, p.y));
     }
