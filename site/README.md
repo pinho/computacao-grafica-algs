@@ -42,8 +42,8 @@ google-chrome site/index.html
 - [X] Polilinhas
 - [ ] Recorte de Linha
 - [ ] Recorte de Polígono
-- [ ] Transformações: Translação
-- [ ] Transformações: Rotação
-- [ ] Transformações: Escala
+- [X] Transformações: Translação
+- [X] Transformações: Rotação
+- [X] Transformações: Escala
 - [ ] Projeções
 - [ ] Perspectiva

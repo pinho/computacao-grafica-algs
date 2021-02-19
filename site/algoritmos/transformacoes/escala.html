@@ -14,9 +14,25 @@
     <div class="two-col-container">
 
       <div class="child-column-div form-container bordered">
-        <!-- TODO: Adicionar o formulario com as entradas pro algoritmo -->
+        <div>
+          <span>Ponto</span>
+          <input type="number" id="ponto-x" class="no-spinners" placeholder="X" />
+          <input type="number" id="ponto-y" class="no-spinners" placeholder="Y" />
+        </div>
+        <div>
+          <span>Escala</span>
+          <input type="number" id="ponto-r1" class="no-spinners" placeholder="X" />
+          <input type="number" id="ponto-r2" class="no-spinners" placeholder="Y" />
+        </div>
+
+        <div id="btn-add-point" class="btn centered">Adicionar Ponto</div>
         <div id="btn-clean" class="btn centered">Limpar</div>
         <div id="btn-run" class="btn centered">Executar</div>
+
+        <!-- Aqui vao ser mostrados os pontos adicionados -->
+        <div id="output">
+          <p>0 pontos selecionados</p>
+        </div>
       </div>
 
       <div class="child-column-div result-container bordered">
@@ -29,20 +45,78 @@
   </div>
 
   <!-- Inclusao do scripts JS -->
-  <script src="../../../matrizes.js"></script>
+  <script src="../../js/matrizes.js"></script>
+  <script src="../prenchimento/fillPolygon/fillPolygon.js"></script>
+  <script src="./scale.js"></script>
 
   <script>
     const matrix = new Matrix(30, 30, document.getElementById('matrix-container'), 16);
+    const outputContainer = document.getElementById('output');
+    var inputControlPoints = [];
+    var scale;
+
+    function createPointFromId(elementId) {
+      let inputX = document.getElementById(`${elementId}-x`).value;
+      let inputY = document.getElementById(`${elementId}-y`).value;
+      let x = Number(inputX), y = Number(inputY);
+      return new Point(x, y);
+    }
+
+    function createScale(elementId) {
+      let inputX = document.getElementById(`${elementId}-r1`).value;
+      let inputY = document.getElementById(`${elementId}-r2`).value;
+      let x = Number(inputX), y = Number(inputY);
+      return new Point(x, y);
+    }
+
+    document.getElementById('btn-add-point').onclick = function() {
+      // Ler o ponto definido nas entradas de numeros
+      let point = createPointFromId('ponto');
+      scale = createScale('ponto');
+      inputControlPoints.push(point);
+      matrix.paint(point.x, point.y, 'yellow');
+
+      // Mostrar os pontos ja selecionados
+      document.querySelector("#output > p").innerText = `${inputControlPoints.length} pontos selecionados`;
+      let newP = document.createElement('p');
+      newP.innerText = `P${inputControlPoints.length} = (${point.x}, ${point.y})`;
+      document.getElementById('output').appendChild(newP);
+    }
 
     // Adiciona a funcao do botao Limpar
+    // Limpa a matriz, mas tambem tem que remover todos os pontos da lista e limpar a saida
     document.getElementById('btn-clean').onclick = function() {
       matrix.clean();
-    };
+      inputControlPoints = [];
+      let output = document.getElementById('output');
+      while (output.firstChild) {
+      	output.removeChild(output.firstChild);
+      }
+      output.innerHTML = '<p>0 pontos selecionados</p>';
+    }
     
     // Adiciona a funcao do botao Executar
     document.getElementById('btn-run').onclick = function() {
-      // TODO: Logica da leitura dos dados de entrada e execucao do algoritmo
+      if (inputControlPoints.length <= 2) {
+        console.error("Necessario ter pelo menos 2 pontos adicionados!");
+        return
+      }
+
+      let newPoints = [];
+
+      for (let i=0; i < inputControlPoints.length; i++) {
+        
+        newPoints.push({ "x": inputControlPoints[i].x*scale.x , "y":inputControlPoints[i].y*scale.y})
+      }
+
+      let polygon = new FillPolygon(newPoints);
+      inputControlPoints.forEach(p => matrix.paint(p.x, p.y, 'white'));
+      polygon.pointList.forEach(p => matrix.paint(p.x, p.y));
+
+ 
+
     }
+
   </script>
 </body>
 </html>

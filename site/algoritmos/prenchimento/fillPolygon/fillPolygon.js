@@ -1,34 +1,26 @@
 
-
-
-
 function FillPolygon(arrayPoints) {
     var points = {
         x: new Array,
         y: new Array
     };
-
+    this.pointList = [];
+    var criticalPoints = new Array;
 
     arrayPoints.forEach(e => {
         points.x.push(e.x);
         points.y.push(e.y);
     })
-
-    this.pointList = [];
-    var criticalPoints = new Array;
-    // Encontra o bounding box para Y e os pontos críticos mínimos em Y
     var Y = {
         min: Number.MAX_VALUE,
         max: Number.MIN_VALUE
     };
-    // loop de varredura
     var activeCriticalPoints = [];
     var comparator;
 
     points, Y, criticalPoints = readingDirection(points, Y, criticalPoints);
     criticalPoints, activeCriticalPoints, points, Y, this.pointList = intersectionAtHotspots(criticalPoints, activeCriticalPoints, points, Y, this.pointList);
 }
-
 
 
 
@@ -73,7 +65,6 @@ function readingDirection(points, Y, criticalPoints) {
     }
     return points, Y, criticalPoints;
 }
-
 
 function intersectionAtHotspots(criticalPoints, activeCriticalPoints, points, Y, pointList) {
     // Atualiza o valor de cada intersecao nos pontos ativos
@@ -128,11 +119,7 @@ function orderPoint(activeCriticalPoints, pointList, y) {
         let xEnd = parseInt(Math.round(activeCriticalPoints[i+1].x_intersection).toFixed(1));
 
         for (let x = xStart; x <= xEnd; x++) {
-            // console.log("X: " + x + " | Y: " + y);
-
             pointList.push({ x, y });
-            // mat.paint(x, y);
-
         }
     }
 

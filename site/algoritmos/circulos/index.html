@@ -56,6 +56,7 @@
       const p1 = createPointFrom('ponto-a');
       var line = new Circle(p1.center.x, p1.center.y, p1.ratio);
       line.listOfPointsReflected.forEach(p => matrix.paint(p.x, p.y));
+      matrix.paint(p1.center.x, p1.center.y)
     }
 
 
