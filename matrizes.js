@@ -136,99 +136,54 @@ function Matrix(numOfRows, numOfColumns, parentElement, pixelSize = 20) {
     };
 }
 
-// TODO: Documentar a matrix com quadrantes
-const QuadMatrix = {
-    width: 0,
+function QuadMatrix(minorX, majorX, minorY, majorY, parentElement, pixelSize = 20) {   
+    if (minorX >= 0 || minorY >= 0 || majorX <= 0 || majorY <= 0) {
+        throw "Ranges for X or Y axis is invalid!";
+    }
+    this.originIndex = { x: 0, y: 0 };
+    
+    // Define informacoes largura e intervalos dos eixos do plano
+    this.xRange.minor = minorX;
+    this.xRange.major = majorX;
+    this.yRange.minor = minorY;
+    this.yRange.major = majorY;
+    this.width  = Math.abs((majorX - minorX) + 1);
+    this.height = Math.abs((majorY - minorY) + 1);
+    this.pixels = new Array(0);
 
-    height: 0,
+    // Define o indice da origem no array
+    this.originIndex.x = Math.abs(result.xRange.minor)
+    this.originIndex.y = Math.abs(result.yRange.major)
 
-    xRange: {
-        minor: 0,
-        major: 0
-    },
+    // TODO: Criar elementos HTML ...
+    var divRootElement = document.createElement("div");
+    divRootElement.classList.add("pixels-grid");
+    divRootElement.style.gridTemplateRows = `repeat(${this.height}, ${pixelSize}px)`;
+    divRootElement.style.gridTemplateColumns = `repeat(${this.width}, ${pixelSize}px)`;
 
-    yRange: {
-        minor: 0,
-        major: 0
-    },
+    for (let i=0; i < result.height; i++) {
+        let matrixRow = [];
+        for (let k=0; k < result.width; k++) {
+            let newPixel = document.createElement("div");
+            newPixel.classList.add("pixel");
+            newPixel.style.fontSize = ".5em";
+            matrixRow.push(newPixel);
+            divRootElement.appendChild(newPixel);
+        }
+        this.pixels.push(matrixRow);
+    }
+    parentElement.appendChild(divRootElement);
 
-    originIndex: {
-        x: 0, // function() { return Math.abs(this.yRange.minor) },
-        y: 0, // function() { return Math.abs(this.xRange.minor) },
-    },
-
-    /** Lista de listas de elementos "div", onde cada elemento representa um pixel */
-    pixels: new Array(0),
-
-    /** Getter para um pixel. Calcula os indices de acordo com os ranges dos 
-     * eixos X e Y, ou seja, aceita valores negativos nos indices desde que 
-     * estejam dentro dos interbalos definidos. 
-     * @param {Number} x coordenada no eixo x
-     * @param {Number} y coordenada no eixo y
-     */
-    get: function(x, y) {
+    this.get = function(x, y) {
         newx = this.originIndex.y - y;
         newy = this.originIndex.x + x;
         console.log(`Mapeando as coordenadas (${x},{y}) para (${newx},${newy})`);
         return this.pixels[newx][newy];
-    },
-
-    /**
-     * Criar uma matrix com a logica de indexacao dos quatro quadrantes de um
-     * plano cartesiano.
-     * 
-     * @param {Number} minorX o limite inferior par a o eixo x 
-     * @param {Number} majorX o limite superior par a o eixo x
-     * @param {Number} minorY o limite inferior par a o eixo y
-     * @param {Number} majorY o limite superior par a o eixo y
-     * @param {HTMLElement} parentElement o elemento HTML que ira conter o elemento de 
-     * matriz criada
-     * @param {Number} pixelSize tamanho de cada elemento quadrado que representa um
-     * pixel (em pixels)
-     * @returns {QuadMatrix}
-     */
-    create: function(minorX, majorX, minorY, majorY, parentElement, pixelSize = 20) {
-        let result = Object.create(QuadMatrix);
-        if (minorX >= 0 || minorY >= 0 || majorX <= 0 || majorY <= 0) {
-            throw "Ranges for X or Y axis is invalid!";
-        }
-        // Define informacoes largura e intervalos dos eixos do plano
-        result.xRange.minor = minorX;
-        result.xRange.major = majorX;
-        result.yRange.minor = minorY;
-        result.yRange.major = majorY;
-        result.width  = Math.abs((majorX - minorX) + 1);
-        result.height  = Math.abs((majorY - minorY) + 1);
-        // Define o indice da origem no array
-        result.originIndex.x = Math.abs(result.xRange.minor)
-        result.originIndex.y = Math.abs(result.yRange.major)
-        console.table(result.originIndex)
-
-        // TODO: Criar elementos HTML ...
-        var divRootElement = document.createElement("div");
-        divRootElement.classList.add("pixels-grid");
-        divRootElement.style.gridTemplateRows = `repeat(${result.height}, ${pixelSize}px)`;
-        divRootElement.style.gridTemplateColumns = `repeat(${result.width}, ${pixelSize}px)`;
-
-        for (let i=0; i < result.height; i++) {
-            let matrixRow = [];
-            for (let k=0; k < result.width; k++) {
-                let newPixel = document.createElement("div");
-                newPixel.classList.add("pixel");
-                // newPixel.innerText = `(${result.xRange.minor+k}, ${result.yRange.major-i})`; // linha usada em debug
-                newPixel.style.fontSize = ".5em";
-                matrixRow.push(newPixel);
-                divRootElement.appendChild(newPixel);
-            }
-            result.pixels.push(matrixRow);
-        }
-        parentElement.appendChild(divRootElement);
-
-        return result;
-    },
-
-    paint: function(coordX, coordY, color = 'black') {
+    };
+    
+    this.paint = function(coordX, coordY, color = 'black') {
         let pixelElement = this.get(coordX, coordY);
         pixelElement.style.backgroundColor = String(color);
-    },
-};
+    };
+}
+
