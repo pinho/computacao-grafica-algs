@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rasterização de Elipses</title>
   <link rel="stylesheet" type="text/css" href="../../css/global.css" />
+  <style>
+  #ponto-a-rx,
+  #ponto-a-ry {
+    width: 64px;
+  }
+  </style>
 </head>
 <body>
   
@@ -41,7 +47,7 @@
   <script src="./elipse.js"></script>
 
   <script>
-    const matrix = new Matrix(60, 60, document.getElementById('matrix-container'), 8);
+    const matrix = new Matrix(50, 50, document.getElementById('matrix-container'), 8);
 
     // Funcao para criar pontos a partir do 
     const createPointFrom = function(elementId) {
@@ -56,9 +62,8 @@
 
     // Adiciona a funcao do botao Executar
     document.getElementById('btn-run').onclick = function() {
-      const p1 = createPointFrom('ponto-a');
-      console.log(p1)
-      var elipse = new Elipse(p1.center, p1.ratioX, p1.ratioY);
+      const input = createPointFrom('ponto-a');
+      var elipse = new Elipse(input.center, input.ratioX, input.ratioY);
 
       elipse.borderPoints.forEach(p => {
         matrix.paint(p.x, p.y);
